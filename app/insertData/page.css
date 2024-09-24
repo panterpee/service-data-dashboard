@@ -1,0 +1,23 @@
+.input-data{
+    margin-top: 10px;
+    padding: 5px 20px;
+    width: 100%;
+}
+
+.button-a {
+    padding: 10px 80px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+  }
+  
+.max-width {
+    width: 400px;
+    margin-top: 50px;
+    margin-left: 20px;
+}
