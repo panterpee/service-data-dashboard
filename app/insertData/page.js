@@ -12,11 +12,10 @@ export default function Alldata() {
     message: null,
   };
   const searchParams = useSearchParams();
-  const username = searchParams.get('username');
+  const officer_name = searchParams.get('officername');
   const [state, formAction] = useFormState(insertData, initMessage);
 
-  // Use the username or fallback to an empty string
-  const [officerName, setOfficerName] = useState(username || "");
+  const [officerName, setOfficerName] = useState(officer_name || "");
 
   const topics = [
     { topic: "Officer Name", key: "officerName", value: officerName, isReadOnly: true },

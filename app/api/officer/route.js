@@ -21,12 +21,13 @@ export async function POST(req) {
     const officerData = results[0];
     console.log(typeof(officerData.password))
     console.log(typeof(password))
+    console.log(officerData.officer_name)
     if (officerData.password === password) {
 
       return new Response(JSON.stringify({ 
         message: "login success", 
         cookieSet: true,
-        username 
+        officerName: officerData.officer_name
       }), {
         status: 200,
         headers: {

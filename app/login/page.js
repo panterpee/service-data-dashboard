@@ -8,13 +8,13 @@ export default function Page() {
   const router = useRouter();
   const initialState = {
     message: null,
-    username: null,
+    officerName: null,
   }
   const [state, formAction] = useFormState(Login, initialState)
 
  if (state.message === 'login success') {
-      alert(`${state.message}, username: ${state.username}`);
-      router.push(`/insertData?username=${state.username}`); //parse state: username
+      alert(`${state.message}, username: ${state.officerName}`);
+      router.push(`/insertData?officername=${state.officerName}`); //parse state offciername
     } else if (state.message) {
       alert(state.message);
     }

@@ -36,13 +36,13 @@ export async function Login(prevState, formData) {
         maxAge: 3600,
       });
     }
-
+    console.log(response.data)
     console.log('Server Response:', response.data.message);
     console.log('Response Headers:', response.headers);
 
     return {
       message: response.data.message,
-      username
+      officerName: response.data.officerName
     };
 
   } catch (error) {
