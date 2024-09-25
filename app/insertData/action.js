@@ -29,3 +29,21 @@ export async function insertData(prevState,formData) {
     );
   }
 }
+
+export async function getModel() {
+  try {
+    const response = await axios.get(
+      "http://localhost:3000/api/officer/allData/allModel"
+    );
+    // console.log("Response :", response);
+    console.log("Response data:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error:",
+      error.response ? error.response.data : "Error Occured"
+    );
+    return { message: error.response ? error.response.data.message : "Something Wrong"}
+      
+  }
+}
