@@ -7,9 +7,11 @@ import Link from "next/link";
 import "./page.css";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { getPart } from "./action";
 
 export default function Alldata() {
   const [modelData, setModelData] = useState([]);
+  const [partData, setPartData] = useState([]);
 
   useEffect(() => {
     async function fetchModel() {
@@ -23,6 +25,17 @@ export default function Alldata() {
       }
     }
 
+    async function fetchPart() {
+      const results = await getPart();
+      console.log("model:", results);
+
+      if (results.message) {
+        setError(results.message);
+      } else {
+        setPartData(results);
+      }
+    }
+    fetchPart()
     fetchModel();
   }, []); //
 
@@ -36,18 +49,18 @@ export default function Alldata() {
   const [malfunction, setMalfunction] = useState(""); 
   const [customerPhone, setCustomerPhone] = useState(""); 
 
-  if (state.message === "insert data success") {
-    alert(state.message);
-  } else if (state.message) {
-    alert(state.message);
-  }
+  useEffect(() => {
+    if (state.message) {
+      alert(state.message);
+    }
+  }, [state.message]); 
 
   const topics = [
-    {topic: "Officer Name",key: "officerName",value: officerName,type: "text",isReadOnly: true, disabled: true},
+    {topic: "Officer Name",key: "officerName",value: officerName,type: "text",isReadOnly: true, },
     { topic: "Product", key: "product", option: modelData, type: "select" },
-    { topic: "Part", key: "part", option: [],type: "select"  },
-    { topic: "Malfunction", key: "malfunction", type: "text", value: malfunction, disabled: false},
-    { topic: "Customer Phone", key: "custumerPhone", type: "text", value: customerPhone, disabled: false },
+    { topic: "Part", key: "part", option: partData, type: "select"  },
+    { topic: "Malfunction", key: "malfunction", type: "text", value: malfunction, },
+    { topic: "Customer Phone", key: "custumerPhone", type: "number", value: customerPhone },
   ];
 
   console.log(modelData.model);
@@ -68,24 +81,25 @@ export default function Alldata() {
           {topics.map((topic, index) => (
             <div key={index} className="" style={{ display: 'flex', alignItems: 'flex-start' }}>
               <label htmlFor={topic.key}>{topic.topic}:</label>
-              {topic.type === "text" ? (
+              {topic.type === "text" || topic.type === "number" ? (
                 <input
-                  type="text"
+                  type={topic.type}
                   name={topic.key}
                   id={topic.key}
                   value={topic.value || ""}
                   placeholder={`Enter ${topic.topic}`}
                   onChange={e => handleInputChange(topic.key, e.target.value)} 
                   disabled = {topic.disabled}
+
                 />
               ) : (
                 <div key={index} className="form-group">
                   {/* <label>Select {topic.topic}:</label> */}
                   <select name={topic.key} id={topic.key} defaultValue="">
-                  <option value="" disabled> Select {topic.topic}</option>
+                  {/* <option value="" disabled> Select {topic.topic}</option> */}
                     {topic.option?.map((option, idx) => (
                       <option key={idx} value={"Select"}>
-                        {option.model}
+                        {option.model ? (option.model) : (option.part)}
                       </option>
                     ))}
                   </select>
