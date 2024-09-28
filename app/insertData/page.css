@@ -1,23 +1,63 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .input-data{
     margin-top: 10px;
-    padding: 5px 20px;
+    padding: 5px 20px; 
     width: 100%;
+    border-radius: 5px;
 }
 
 .button-a {
-    padding: 10px 80px;
-    background-color: #000;
-    color: #fff;
+    padding: 5px 80px;
+    background-color: #565656;
+    color: #e8e8e8;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
     margin-top: 20px;
     text-align: center;
-    width: 100%;
+    width: 300px;
+    border-radius: 10px;
+    align-items: center;
   }
   
 .max-width {
-    width: 400px;
+    width: max-content;
     margin-top: 50px;
     margin-left: 20px;
+}
+
+label {
+    font-size: 18px;
+}
+
+input {
+    width: 300px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+select {
+    padding: 2px 30px;
+    margin-left: 10px;
+    min-width: 300px;
+    text-align: center;
+
+}
+
+.topic-div {
+    margin-top: 10px;
+}
+
+.insert_result {
+    font-size: 30px;
 }

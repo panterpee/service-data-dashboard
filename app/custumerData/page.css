@@ -4,5 +4,34 @@ table, th, td {
   }
 
 table {
-  width: 70%;
+  width: 90%;
+  background-color: whitesmoke;
+  margin-top: 20px;
+}
+
+.input-container {
+  display: flex;
+  justify-content: flex-end; /* Aligns the input to the right */
+  margin-bottom: 20px; /* Space below the input */
+  margin-right: 20px;
+  margin-top: 40px;
+}
+
+input {
+  width: 500px; /* Width of the input */
+  padding: 20px; /* Padding for input */
+}
+
+.center {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content vertically */
+  }
+
+.input-container label {
+  margin-right: 5px;
+  padding-top: 4px;
+  font-weight: bold;
+  font-size: 1.5rem;
 }

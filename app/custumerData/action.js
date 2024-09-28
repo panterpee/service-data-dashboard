@@ -8,7 +8,7 @@ export async function getData() {
       "http://localhost:3000/api/officer/allData"
     );
     // console.log("Response :", response);
-    console.log("Response data:", response.data);
+    console.log("Response data:", response);
     return response.data;
   } catch (error) {
     console.error(

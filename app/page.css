@@ -1,3 +1,4 @@
+
 .align-center {
     display: flex;
     flex-direction: column;
@@ -5,11 +6,29 @@
     align-items: center;
     height: 60vh; 
     text-align: center; 
+    margin-top: 15vh;
   }
   
-  button {
+  .login-button {
     margin-top: 20px;
     padding: 10px 20px;
+    font-size: 30px;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid black;
+    color: black;
+    padding: 14px 28px;
     font-size: 16px;
+    cursor: pointer;
   }
   
+  /* body {
+    background: url(./public/bg-engineer.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center top;
+    background-attachment: fixed;
+  } */
+
+  .align-center h1 {
+    font-size: 2.5rem;
+  }

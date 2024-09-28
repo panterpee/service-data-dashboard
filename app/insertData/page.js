@@ -79,7 +79,7 @@ export default function Alldata() {
       <div className="max-width">
         <form action={formAction}>
           {topics.map((topic, index) => (
-            <div key={index} className="" style={{ display: 'flex', alignItems: 'flex-start' }}>
+            <div key={index} className="topic-div" style={{ display: 'flex', alignItems: 'flex-start' }}>
               <label htmlFor={topic.key}>{topic.topic}:</label>
               {topic.type === "text" || topic.type === "number" ? (
                 <input
@@ -98,7 +98,7 @@ export default function Alldata() {
                   <select name={topic.key} id={topic.key} defaultValue="">
                   {/* <option value="" disabled> Select {topic.topic}</option> */}
                     {topic.option?.map((option, idx) => (
-                      <option key={idx} value={"Select"}>
+                      <option key={idx}>
                         {option.model ? (option.model) : (option.part)}
                       </option>
                     ))}
@@ -112,7 +112,8 @@ export default function Alldata() {
         <Link href="/custumerData">
           <button className="button-a">See all data</button>
         </Link>
-        <div>{state.message}</div>
+        <br/><br/>
+        <div className="insert_result">{state.message}</div>
       </div>
     </>
   );
