@@ -61,12 +61,12 @@ const BarChart = () => {
         label: 'Product Defect Count',
         data: dataValues,  // Count of each model
         backgroundColor: [
-          'rgba(255, 99, 132, 0.7)',
-          'rgba(54, 162, 235, 0.7)',
-          'rgba(255, 206, 86, 0.7)',
-          'rgba(75, 192, 192, 0.7)',
-          'rgba(153, 102, 255, 0.7)',
-          'rgba(255, 159, 64, 0.7)',
+          'rgba(255, 99, 132, 0.8)',
+          'rgba(54, 162, 235, 0.8)',
+          'rgba(255, 206, 86, 0.8)',
+          'rgba(75, 192, 192, 0.8)',
+          'rgba(153, 102, 255, 0.8)',
+          'rgba(255, 159, 64, 0.8)',
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
@@ -83,10 +83,10 @@ const BarChart = () => {
 
   return (
     <div style={{ maxWidth: '800px', height: 'max-content', color:"GrayText", textAlign:"center", 
-    fontSize:"25px", fontWeight:"bolder", backgroundColor:"rgba(255, 255, 255, 0.3)"
+    fontSize:"25px", fontWeight:"bolder", backgroundColor:"rgba(255, 255, 255, 0.5)"
     ,marginBottom:"5rem", marginLeft:"5vw"}}>
       <h1>Product Defect Chart</h1>
-      <Bar data={data} />
+      <Bar data={data}/>
     </div>
   );
 };
