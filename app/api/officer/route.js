@@ -5,6 +5,7 @@ import { cookies } from 'next/headers'
 const secret = "serviceSecretData";
 
 export async function POST(req) {
+  
   try {
     const conn = await connectToDatabase();
     const { username, password } = await req.json();
@@ -17,7 +18,7 @@ export async function POST(req) {
         status: 404,
       });
     }
-
+    
     const officerData = results[0];
     console.log(typeof(officerData.password))
     console.log(typeof(password))
@@ -45,4 +46,5 @@ export async function POST(req) {
       status: 500,
     });
   }
+  
 }

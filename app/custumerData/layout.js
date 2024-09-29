@@ -1,5 +1,6 @@
 import Navbar from "@/app/Navbar";
 import { Inter } from "next/font/google";
+import BarChart from "./chart";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <Navbar/>
            {children}
+        <BarChart/>
       </body>
     </html>
   );

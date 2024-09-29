@@ -18,10 +18,9 @@ module.exports = {
       },
     },
   },
-  plugins: [nextui()],
-  plugins: [
+  plugins: [nextui(),
     require('flowbite/plugin')
-]
+  ],
 };
 
 const flowbite = require("flowbite-react/tailwind");

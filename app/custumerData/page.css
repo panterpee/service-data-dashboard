@@ -4,9 +4,10 @@ table, th, td {
   }
 
 table {
-  width: 90%;
+  width: 100%;
   background-color: whitesmoke;
-  margin-top: 20px;
+  /* margin-top: 20px; */
+  border-collapse: collapse;
 }
 
 .input-container {
@@ -15,10 +16,11 @@ table {
   margin-bottom: 20px; /* Space below the input */
   margin-right: 20px;
   margin-top: 40px;
+  padding-bottom: 10px;
 }
 
 input {
-  width: 500px; /* Width of the input */
+  width: 400px; /* Width of the input */
   padding: 20px; /* Padding for input */
 }
 
@@ -31,7 +33,22 @@ input {
 
 .input-container label {
   margin-right: 5px;
-  padding-top: 4px;
+  padding-top: 2px;
   font-weight: bold;
   font-size: 1.5rem;
 }
+
+td {
+  word-wrap: break-word;
+  height: 20px;
+  overflow: hidden;
+  
+}
+
+.table-height {
+  max-height: 310px; /* Fixed height for scrolling */
+  overflow-y: auto; /* Enable vertical scroll */
+  width: 90%; /* Adjusted width to fit */
+  margin-bottom: 50px;
+}
+

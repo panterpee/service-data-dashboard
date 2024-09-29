@@ -1,7 +1,20 @@
 "use server";
 import axios from "axios";
+import { cookies } from 'next/headers';
 
 export async function insertData(prevState,formData) {
+
+  const getToken = () => {
+    const token = cookies().get('token');
+    return token;
+  };
+
+  const token = getToken()
+  if (!token) {
+    alert("You have to login.")
+    window.location.href = "/login";
+  }
+
   const getData = {
     officerName: formData.get("officerName"),
     product: formData.get("product"),
@@ -47,6 +60,7 @@ export async function getModel() {
       
   }
 }
+
 
 export async function getPart() {
   try {

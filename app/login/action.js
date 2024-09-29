@@ -42,7 +42,7 @@ export async function Login(prevState, formData) {
 
     return {
       message: response.data.message,
-      officerName: response.data.officerName
+      officerName: response.data.officerName,
     };
 
   } catch (error) {
