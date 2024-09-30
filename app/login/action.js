@@ -4,7 +4,7 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 
-const secret = "serviceSecretData"; // Ensure this is defined
+const secret = "serviceSecretData"; 
 
 export async function Login(prevState, formData) {
   const username = formData.get('username');
@@ -21,13 +21,13 @@ export async function Login(prevState, formData) {
         withCredentials: true,
       }
     );
-
+    console.log(response.data.officerRole)
     if (response.data.message === "login success") {
-      const token = jwt.sign({ username, role: "admin" }, secret, {
+      const token = jwt.sign({ username, role: response.data.officerRole }, secret, {
         expiresIn: "1h",
       });
+      // localStorage.setItem('token', 'your-jwt-token');
 
-      // Set the cookie using the appropriate method
       const cookieStore = cookies();
       cookieStore.set('token', token, {
         httpOnly: true,
@@ -36,7 +36,7 @@ export async function Login(prevState, formData) {
         maxAge: 3600,
       });
     }
-    console.log(response.data)
+    // console.log(response.data)
     console.log('Server Response:', response.data.message);
     console.log('Response Headers:', response.headers);
 

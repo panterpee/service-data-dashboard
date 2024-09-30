@@ -28,7 +28,8 @@ export async function POST(req) {
       return new Response(JSON.stringify({ 
         message: "login success", 
         cookieSet: true,
-        officerName: officerData.officer_name
+        officerName: officerData.officer_name,
+        officerRole: officerData.role
       }), {
         status: 200,
         headers: {
