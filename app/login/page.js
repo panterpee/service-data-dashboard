@@ -2,8 +2,9 @@
 import { Login } from "./action";
 import { useFormState } from 'react-dom';
 import { useRouter } from 'next/navigation';
-import './page.css';
+import "./page.css";
 import { useUserContext } from "../userContext";
+import { useEffect } from "react";
 
 export let check_login = false;
 
@@ -19,12 +20,18 @@ export default function Page() {
 
   if (state.message === 'login success') {
     check_login = true;
-    setOfficerName(state.officerName); // Set the officerName in context
+    localStorage.setItem('officerName', state.officerName);
     alert(`${state.message}, Officer: ${state.officerName}`);
-    router.push(`/insertData?officername=${state.officerName}`); // Send state
+    router.push(`/serviceForm`); 
   } else if (state.message) {
     alert(state.message);
   }
+
+  // useEffect(() => {
+  //   if (state.officerName) {
+  //     setOfficerName(state.officerName);
+  //   }
+  // }, [state.officerName]);
 
   return (
     <div className='align-center'>

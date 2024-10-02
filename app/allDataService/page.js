@@ -5,7 +5,6 @@ import { getData } from "./action";
 import "./page.css";
 
 export default function Page() {
-  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState(""); 
   const [custumerData, setCustumerData] = useState([]);
 
@@ -18,13 +17,12 @@ export default function Page() {
         window.location.href = "/login"; 
       } else {
         setCustumerData(result);
+        console.log(result)
       }
-      setLoading(false);
     }
     fetchData();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
 
   // Handler for search input change
   const handleSearchChange = (e) => {
@@ -38,7 +36,8 @@ export default function Page() {
     data.part.toLowerCase().includes(searchTerm.toLowerCase()) ||
     data.malfunction.toLowerCase().includes(searchTerm.toLowerCase()) ||
     data.date.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    data.custumerPhone.toString().includes(searchTerm)
+    data.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    data.sn.toString().includes(searchTerm)
   );
 
   return (
@@ -63,8 +62,9 @@ export default function Page() {
                 <th>Product</th>
                 <th>Part Defect</th>
                 <th>Malfunction</th>
-                <th>Date</th>
-                <th>Phone num.</th>
+                <th>Period (min.)</th>
+                <th>Location</th>
+                <th>SN.</th>
               </tr>
             </thead>
             <tbody>
@@ -75,8 +75,9 @@ export default function Page() {
                   <td>{data.product}</td>
                   <td>{data.part}</td>
                   <td style={{ maxWidth: "400px" }}>{data.malfunction}</td>
-                  <td>{data.date}</td>
-                  <td>{data.custumerPhone}</td>
+                  <td>{data.min_diff}</td>
+                  <td>{data.location}</td>
+                  <td>{data.sn}</td>
                 </tr>
               ))}
             </tbody>

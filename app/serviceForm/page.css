@@ -1,0 +1,65 @@
+@import "flowbite";
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.button-a {
+    padding: 10px 80px;
+    background-color: #565656;
+    color: #e8e8e8;
+    border: none;
+    cursor: pointer;
+    margin-top: 30px;
+    text-align: center;
+    width: 300px;
+    border-radius: 10px;
+    align-items: center;
+  }
+  
+.max-width {
+    width: max-content;
+    margin-top: 50px;
+    margin-left: 5vw;
+}
+
+label {
+    font-size: 20px;
+    font-weight: bold;
+    width: 200px;
+    padding-top: 5px;
+}
+
+input {
+    width: 100%;
+    max-width: 400px;
+    height: 45px;
+    /* padding-left: 10px; */
+    background-color: bisque;
+}
+
+select {
+    padding: 10px 0px;
+    width: 250px;
+    text-align: center;
+
+}
+
+.topic-div {
+    margin-top: 20px;
+}
+
+.insert_result {
+    font-size: 30px;
+}
+
+.max-width form {
+    width:700px
+}

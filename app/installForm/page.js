@@ -1,24 +1,23 @@
 "use client";
-
-import { insertData } from "./action";
-import { getModel } from "./action";
 import { useFormState } from "react-dom";
 import Link from "next/link";
-import "./page.css";
 import { useEffect, useState } from "react";
-import { getPart } from "./action";
 import { useUserContext } from "../userContext";
+import { getModel } from "./action";
+import { insertInstallData } from "./action";
+import "./page.css";
 
 export default function Alldata() {
   const initMessage = {
     message: null,
   };
-  const [state, formAction] = useFormState(insertData, initMessage);
-  const [malfunction, setMalfunction] = useState("");
-  const [customerPhone, setCustomerPhone] = useState("");
+  const [state, formAction] = useFormState(insertInstallData, initMessage);
   const [modelData, setModelData] = useState([]);
-  const [partData, setPartData] = useState([]);
-  const { officerName, setOfficerName } = useUserContext(); 
+  const [modelSn, setModelSn] = useState(null);
+  const [location, setLocation ] = useState(null);
+  const {officerName, setOfficerName } = useUserContext(); 
+
+  const storedOfficerName = localStorage.getItem('officerName');
 
   useEffect(() => {
     async function fetchModel() {
@@ -31,18 +30,6 @@ export default function Alldata() {
         setModelData(result);
       }
     }
-
-    async function fetchPart() {
-      const results = await getPart();
-      console.log("part:", results);
-
-      if (results.message) {
-        setError(results.message);
-      } else {
-        setPartData(results);
-      }
-    }
-    fetchPart();
     fetchModel();
   }, []);
 
@@ -53,22 +40,23 @@ export default function Alldata() {
   }, [state.message]);
 
   const topics = [
-    { topic: "Officer Name", key: "officerName", value: officerName, type: "text" },
+    { topic: "Officer Name", key: "officerName", value: officerName||storedOfficerName , type: "text" },
     { topic: "Product", key: "product", option: modelData, type: "select" },
-    { topic: "Part", key: "part", option: partData, type: "select" },
-    { topic: "Malfunction", key: "malfunction", type: "text", value: malfunction },
-    { topic: "Customer Phone", key: "custumerPhone", type: "number", value: customerPhone },
+    { topic: "Model SN", key: "modelSn", type: "text", value: modelSn },
+    { topic: "Location", key: "location", type: "text", value: location },
   ];
 
   const handleInputChange = (key, value) => {
-    if (key === "malfunction") {
-      setMalfunction(value);
-    } else if (key === "custumerPhone") {
-      setCustomerPhone(value);
+    if (key === "modelSn") {
+      setModelSn(value);
     } else if (key === "officerName") {
-      setOfficerName(value); // Update the officer name in context
+      setOfficerName(value); 
+    } else if (key === "location") {
+      setLocation(value); 
     }
+    
   };
+
 
   return (
     <div className="max-width">
@@ -88,7 +76,7 @@ export default function Alldata() {
             ) : (
               <div key={index} className="form-group">
                 <select name={topic.key} id={topic.key} defaultValue="">
-                  {topic.option?.map((option, idx) => (
+                  {topic.option.map((option, idx) => (
                     <option key={idx}>
                       {option.model ? (option.model) : (option.part)}
                     </option>

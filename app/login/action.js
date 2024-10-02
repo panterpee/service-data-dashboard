@@ -3,6 +3,7 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
+import "./page.css"
 
 const secret = "serviceSecretData"; 
 
@@ -24,16 +25,16 @@ export async function Login(prevState, formData) {
     console.log(response.data.officerRole)
     if (response.data.message === "login success") {
       const token = jwt.sign({ username, role: response.data.officerRole }, secret, {
-        expiresIn: "1h",
+        expiresIn: "2h",
       });
       // localStorage.setItem('token', 'your-jwt-token');
 
       const cookieStore = cookies();
       cookieStore.set('token', token, {
-        httpOnly: true,
+        // httpOnly: true,
         secure: true,
         path: '/',
-        maxAge: 3600,
+        maxAge: 7200,
       });
     }
     // console.log(response.data)

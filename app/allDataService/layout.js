@@ -1,6 +1,6 @@
-// app/layout.js
 import Navbar from "@/app/Navbar";
 import { Inter } from "next/font/google";
+import BarChart from "./chart";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,13 +12,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      {/* <head>
-        <link href="https://unpkg.com/flowbite@1.5.4/dist/flowbite.min.css" rel="stylesheet" />
-        <script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.min.js" defer></script>
-      </head> */}
       <body className={inter.className}>
-        <Navbar />
-        {children}
+        <Navbar/>
+           {children}
+        <BarChart/>
       </body>
     </html>
   );

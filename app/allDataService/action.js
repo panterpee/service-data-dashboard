@@ -16,10 +16,10 @@ export async function getData() {
 
   try {
     const response = await axios.get(
-      "http://localhost:3000/api/officer/allData"
+      "http://localhost:3000/api/officer/allDataService"
     );
     // console.log("Response :", response);
-    console.log("Response data:", response);
+    console.log("Response data:", response.data);
     return response.data;
   } catch (error) {
     console.error(
