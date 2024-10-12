@@ -4,7 +4,7 @@
 @import "flowbite"; 
 
 body {
-    background: url(./public/bg-engineer.jpg) ;
+    background: url(../public/bg-engineer.jpg) ;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center top;

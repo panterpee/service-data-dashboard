@@ -1,4 +1,4 @@
-import Navbar from "@/app/Navbar";
+import Navbar from "@/app/component/Navbar";
 import { Inter } from "next/font/google";
 import BarChart from "./chart";
 
@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Navbar/>
-           {children}
+          {children}
         <BarChart/>
       </body>
     </html>

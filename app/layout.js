@@ -1,5 +1,5 @@
 import { Inter } from "next/font/google";
-import './global.css';
+import './component/global.css';
 import 'tailwindcss/tailwind.css'; // Import Tailwind CSS
 import 'flowbite/dist/flowbite.css'; // Import Flowbite CSS
 import { UserProvider } from "./userContext"; // Make sure the import path is correct

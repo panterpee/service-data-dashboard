@@ -20,7 +20,6 @@ export default function AdminPage() {
 
   useEffect(() => {
     const token = getCookie();
-    
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
@@ -49,7 +48,7 @@ export default function AdminPage() {
   }, [userRole, router]);  
 
   const [searchTerm, setSearchTerm] = useState(""); 
-  const [custumerData, setCustumerData] = useState([]);
+  const [installData, setInstallData] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -59,7 +58,7 @@ export default function AdminPage() {
         alert(result.message);
         window.location.href = "/login"; 
       } else {
-        setCustumerData(result);
+        setInstallData(result);
       }
     }
     fetchData();
@@ -69,15 +68,12 @@ export default function AdminPage() {
     setSearchTerm(e.target.value);
   };
 
-  const filteredData = custumerData.filter((data) =>
+  const filteredData = installData.filter((data) =>
     data.officerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
     data.product.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    data.part.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    data.malfunction.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    data.install_date.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    data.service_date.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    data.SN.toLowerCase().includes(searchTerm.toLowerCase()) ||
     data.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    data.SN.toString().includes(searchTerm)
+    data.date.toLowerCase().includes(searchTerm.toLowerCase()) 
   );
 
   return (
@@ -100,13 +96,10 @@ export default function AdminPage() {
               <th>Num</th>
                 <th>Officer Name</th>
                 <th>Product</th>
-                <th>Part Defect</th>
-                <th>Malfunction</th>
+                <th>SN</th>
                 <th>InstallDate</th>
-                <th>ServiceDate</th>
-                <th>Period (min.)</th>
                 <th>Location</th>
-                <th>SN.</th>
+                <th>Date</th>
               </tr>
             </thead>
             <tbody>
@@ -115,17 +108,9 @@ export default function AdminPage() {
                   <td>{index + 1}.</td>
                   <td>{data.officerName}</td>
                   <td>{data.product}</td>
-                  <td>{data.part}</td>
-                  <td style={{ maxWidth: "400px" }}>{data.malfunction}</td>
-                  <td style={{ maxWidth: "150px" }}>{data.install_date}</td>
-                  <td style={{ maxWidth: "150px" }}>{data.service_date}</td>
-                  <td>{data.total_days} d. {data.total_hours} hr. {data.total_minutes} m. </td>
-                  <td>{data.location}</td>
                   <td>{data.SN}</td>
-                  <td>
-                    <button>Del</button>
-                    <button>Edit</button>
-                  </td>
+                  <td style={{ maxWidth: "150px" }}>{data.date}</td>
+                  <td>{data.location}</td>
                 </tr>
               ))}
             </tbody>

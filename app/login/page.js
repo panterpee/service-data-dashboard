@@ -4,7 +4,7 @@ import { useFormState } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import "./page.css";
 import { useUserContext } from "../userContext";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 export let check_login = false;
 
@@ -34,8 +34,8 @@ export default function Page() {
   // }, [state.officerName]);
 
   return (
-    <div className='align-center'>
-      <h1>Login Page</h1>
+    <div className='align_center'>
+      <h1><b>Login</b></h1>
       <form action={formAction}>
         <h3>
           Username:

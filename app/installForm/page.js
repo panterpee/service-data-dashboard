@@ -3,6 +3,7 @@ import { useFormState } from "react-dom";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../userContext";
+import { useRouter } from 'next/navigation';
 import { getModel } from "./action";
 import { insertInstallData } from "./action";
 import "./page.css";
@@ -11,19 +12,32 @@ export default function Alldata() {
   const initMessage = {
     message: null,
   };
+  let storedOfficerName = "";
   const [state, formAction] = useFormState(insertInstallData, initMessage);
   const [modelData, setModelData] = useState([]);
   const [modelSn, setModelSn] = useState(null);
   const [location, setLocation ] = useState(null);
   const {officerName, setOfficerName } = useUserContext(); 
+  if (typeof window !== 'undefined') {
+    // This code will run only in the browser
+    const storedOfficerName = localStorage.getItem('officerName');
+  }
+  const router = useRouter();
 
-  const storedOfficerName = localStorage.getItem('officerName');
+  function getToken() {
+    const token_store = document.cookie;
+    const token = token_store.split(`token=`).pop();
+    if (!token) {
+      alert("You have to login.")
+      router.push(`/login`);
+    }
+  }
 
   useEffect(() => {
+    getToken()
     async function fetchModel() {
       const result = await getModel();
       console.log("model:", result);
-
       if (result.message) {
         setError(result.message);
       } else {
@@ -38,6 +52,8 @@ export default function Alldata() {
       alert(state.message);
     }
   }, [state.message]);
+
+
 
   const topics = [
     { topic: "Officer Name", key: "officerName", value: officerName||storedOfficerName , type: "text" },

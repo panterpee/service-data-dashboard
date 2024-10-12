@@ -10,7 +10,7 @@ const Bar = dynamic(() => import('react-chartjs-2').then((mod) => mod.Bar), {
   ssr: false,
 });
 
-const BarChart = () => {
+const PartChart = () => {
   const [serviceData, setServiceData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -39,10 +39,10 @@ const BarChart = () => {
 
   // Group the data by model and count occurrences
   const modelCounts = serviceData.reduce((acc, item) => {
-    if (acc[item.product]) {
-      acc[item.product] += 1; // Increase count if the model already exists
+    if (acc[item.part]) {
+      acc[item.part] += 1; // Increase count if the model already exists
     } else {
-      acc[item.product] = 1; // Initialize the count for a new model
+      acc[item.part] = 1; // Initialize the count for a new model
     }
     return acc;
   }, {});
@@ -85,10 +85,10 @@ const BarChart = () => {
     <div style={{ maxWidth: '800px', height: 'max-content', color:"GrayText", textAlign:"center", 
     fontSize:"25px", fontWeight:"bolder", backgroundColor:"rgba(255, 255, 255, 0.5)"
     ,marginBottom:"5rem", marginLeft:"5vw"}}>
-      <h1>Product Defect Chart</h1>
+      <h1>Part Defect Chart</h1>
       <Bar data={data}/>
     </div>
   );
 };
 
-export default BarChart;
+export default PartChart;

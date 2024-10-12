@@ -1,31 +1,21 @@
 "use server";
 import axios from "axios";
-import { cookies } from 'next/headers';
-
 export async function insertData(prevState,formData) {
-
-  const getToken = () => {
-    const token = cookies().get('token');
-    return token;
-  };
-
-  const token = getToken()
-  if (!token) {
-    alert("You have to login.")
-    window.location.href = "/login";
-  }
-
   const getData = {
     officerName: formData.get("officerName"),
     product: formData.get("product"),
     part: formData.get("part"),
     malfunction: formData.get("malfunction"),
-    sn: formData.get("modelSn"),
+    location: formData.get("location"),
+    SN: formData.get("modelSn"),
   };
   console.log(getData);
   try {
+    
+
+
     const response = await axios.post(
-      "http://localhost:3000/api/officer/insertdata",
+      "http://localhost:3000/api/officer/insertServiceData",
       getData
     );
     return (
@@ -40,6 +30,7 @@ export async function insertData(prevState,formData) {
       "Error:",
       error.response ? error.response.data : "Error Occured"
     );
+    return { message: error.response ? error.response.data.message : "Something Wrong"}
   }
 }
 
@@ -52,10 +43,7 @@ export async function getModel() {
     console.log("Response data:", response.data);
     return response.data;
   } catch (error) {
-    console.error(
-      "Error:",
-      error.response ? error.response.data : "Error Occured"
-    );
+    console.error("Error:",error.response ? error.response.data : "Error Occured");
     return { message: error.response ? error.response.data.message : "Something Wrong"}
       
   }

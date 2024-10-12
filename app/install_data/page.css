@@ -46,14 +46,9 @@ td {
 }
 
 .table-height {
-  max-height: 310px; 
-  overflow-y: auto;
-  overflow-x: auto; 
+  max-height: 310px; /* Fixed height for scrolling */
+  overflow-y: auto; /* Enable vertical scroll */
   width: 90%; /* Adjusted width to fit */
   margin-bottom: 50px;
-}
-
-button{
-  margin-left: 5px
 }
 

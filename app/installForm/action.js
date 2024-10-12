@@ -1,25 +1,13 @@
 "use server";
 import axios from "axios";
-import { cookies } from 'next/headers';
 
 export async function insertInstallData(prevState,formData) {
-
-  const getToken = () => {
-    const token = cookies().get('token');
-    return token;
-  };
-
-  const token = getToken()
-  if (!token) {
-    alert("You have to login.")
-    window.location.href = "/login";
-  }
 
   // get data form and insert db
   const getData = {
     officerName: formData.get("officerName"), //get key
     product: formData.get("product"),
-    sn: formData.get("modelSn"),
+    SN: formData.get("modelSn"),
     location: formData.get("location"),
   };
   console.log(getData);
@@ -29,17 +17,17 @@ export async function insertInstallData(prevState,formData) {
       getData
     );
     return (
-        console.log("DataAdded",getData),
-        console.log(response.data),
+        // console.log("DataAdded",getData),
+        console.log("response", response.data),
         {message: response.data.message}
-        
     )
-      
   } catch (error) {
-    console.error(
-      "Error:",
-      error.response ? error.response.data : "Error Occured"
-    );
+    console.error("Error:", error.response);
+    if (error.response.data.message) {
+      return { message: error.response.data.message }; 
+    } else {
+      return { message: "An unknown error occurred." }; 
+    }
   }
 }
 

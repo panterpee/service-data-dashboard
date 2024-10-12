@@ -24,20 +24,19 @@ export default function Page() {
   }, []);
 
 
-  // Handler for search input change
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  // Filtered data based on the search term
   const filteredData = custumerData.filter((data) =>
     data.officerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
     data.product.toLowerCase().includes(searchTerm.toLowerCase()) ||
     data.part.toLowerCase().includes(searchTerm.toLowerCase()) ||
     data.malfunction.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    data.date.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    data.install_date.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    data.service_date.toLowerCase().includes(searchTerm.toLowerCase()) ||
     data.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    data.sn.toString().includes(searchTerm)
+    data.SN.toString().includes(searchTerm)
   );
 
   return (
@@ -62,6 +61,8 @@ export default function Page() {
                 <th>Product</th>
                 <th>Part Defect</th>
                 <th>Malfunction</th>
+                <th>InstallDate</th>
+                <th>ServiceDate</th>
                 <th>Period (min.)</th>
                 <th>Location</th>
                 <th>SN.</th>
@@ -75,9 +76,11 @@ export default function Page() {
                   <td>{data.product}</td>
                   <td>{data.part}</td>
                   <td style={{ maxWidth: "400px" }}>{data.malfunction}</td>
-                  <td>{data.min_diff}</td>
+                  <td style={{ maxWidth: "150px" }}>{data.install_date}</td>
+                  <td style={{ maxWidth: "150px" }}>{data.service_date}</td>
+                  <td>{data.total_days} d. {data.total_hours} hr. {data.total_minutes} m. </td>
                   <td>{data.location}</td>
-                  <td>{data.sn}</td>
+                  <td>{data.SN}</td>
                 </tr>
               ))}
             </tbody>

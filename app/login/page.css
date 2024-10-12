@@ -1,13 +1,18 @@
-.align-center {
+.align_center {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 60vh; /* Full viewport height to center vertically */
     text-align: center; /* Center text horizontally */
+    font-size: 1.2rem;
+  }
+
+  .align_center h1{
+    font-size: 1.5rem
   }
   
-  .input {
+  .align_center .input {
     margin-top: 30px;
     margin-left: 20px;
     padding: 5px 50px;
