@@ -19,7 +19,7 @@ export async function getData() {
       "http://localhost:3000/api/officer/get_install"
     );
     // console.log("Response :", response);
-    console.log("Response data:", response.data);
+    // console.log("Response data:", response.data);
     return response.data;
   } catch (error) {
     console.error(

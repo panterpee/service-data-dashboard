@@ -5,9 +5,12 @@ export async function GET() {
         const conn = await connectToDatabase();
 
         const [results] = await conn.query(`
-            SELECT * FROM dataService
-        `);
-
+            SELECT * , installData.location
+            FROM dataService
+            JOIN model ON installData.SN = dataService.SN
+            `
+        );
+        
         console.log("Results sent:", results);
         return new Response(
             JSON.stringify(results),

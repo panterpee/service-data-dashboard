@@ -46,7 +46,7 @@ td {
 }
 
 .table-height {
-  max-height: 310px; 
+  max-height: 90%; 
   overflow-y: auto;
   overflow-x: auto; 
   width: 90%; /* Adjusted width to fit */

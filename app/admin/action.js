@@ -8,7 +8,7 @@ export async function getData() {
     const token = cookies().get('token');
     return token;
   };
-
+  //check already login
   const token = getToken()
   if (!token) {
     return { message: "You have to login." };
@@ -19,7 +19,6 @@ export async function getData() {
       "http://localhost:3000/api/officer/allDataService"
     );
     // console.log("Response :", response);
-    console.log("Response data:", response);
     return response.data;
   } catch (error) {
     console.error(
@@ -28,5 +27,29 @@ export async function getData() {
     );
     return { message: error.response ? error.response.data.message : "Something Wrong"}
       
+  }
+}
+
+// not creat api yet
+export async function updateDataService(editedData) {
+  try {
+    // Use axios.put to send a PUT request with the edited data
+    const response = await axios.put('http://localhost:3000/api/officer/allDataService/editData', editedData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    console.log('editData:', editedData);
+    
+    if (response.status === 200) {
+      // Return the updated data from the server response
+      return response.data;
+    } else {
+      throw new Error('Failed to save data');
+    }
+  } catch (error) {
+    console.error('Error saving data:', error);
+    throw error;
   }
 }

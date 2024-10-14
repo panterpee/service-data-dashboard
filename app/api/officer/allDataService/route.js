@@ -17,7 +17,8 @@ export async function GET() {
                 dataService.product,
                 dataService.officerName,
                 dataService.part,
-                dataService.malfunction
+                dataService.malfunction,
+                dataService.id
             FROM 
                 dataService
             JOIN 
@@ -26,7 +27,7 @@ export async function GET() {
                 dataService.SN = installData.SN;
         `);
 
-        console.log("Results sent:", results);
+        // console.log("Results sent:", results);
         return new Response(
             JSON.stringify(results),
             {

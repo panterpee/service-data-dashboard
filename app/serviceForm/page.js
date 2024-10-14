@@ -8,35 +8,28 @@ import "./page.css";
 import { useEffect, useState } from "react";
 import { getPart } from "./action";
 import { useUserContext } from "../userContext";
-import { useRouter } from 'next/navigation';
+import { checkToken } from "../lib/auth";
 
 export default function Alldata() {
   const initMessage = {
     message: null,
   };
-  let storedOfficerName = "";
+
   const [state, formAction] = useFormState(insertData, initMessage);
   const [malfunction, setMalfunction] = useState("");
   // const [customerPhone, setCustomerPhone] = useState("");
   const [modelData, setModelData] = useState([]);
   const [partData, setPartData] = useState([]);
   const [modelSn, setModelSn] = useState(null);
-  const [location, setLocation] = useState(null);
+  // const [location, setLocation] = useState(null);
   const { officerName, setOfficerName } = useUserContext(); 
-  if (typeof window !== 'undefined') {
-    // This code will run only in the browser
-    const storedOfficerName = localStorage.getItem('officerName');
-  }
-  const router = useRouter();
+
+  useEffect(()=> {
+    const storedOfficerName = window.localStorage.getItem('officerName');
+    setOfficerName(storedOfficerName)
+    }, []
+  );
   
-  function getToken() {
-    const token_store = document.cookie;
-    const token = token_store.split(`token=`).pop();
-    if (!token) {
-      alert("You have to login.")
-      router.push(`/login`);
-    }
-  }
 
   useEffect(() => {
     if (state.message) {
@@ -45,7 +38,7 @@ export default function Alldata() {
   }, [state.message]);
 
   useEffect(() => {
-    getToken()
+    checkToken()
     async function fetchModel() {
       const result = await getModel();
       console.log("model:", result);
@@ -73,12 +66,12 @@ export default function Alldata() {
 
 
   const topics = [
-    { topic: "Officer Name", key: "officerName", value: officerName || storedOfficerName , type: "text" },
+    { topic: "Officer Name", key: "officerName", value: officerName || " ", type: "text" },
     { topic: "Product", key: "product", option: modelData, type: "select" },
     { topic: "SN", key: "modelSn",  type: "text", value: modelSn },
     { topic: "Part", key: "part", option: partData, type: "select" },
     { topic: "Malfunction", key: "malfunction", type: "text", value: malfunction },
-    { topic: "Location", key: "location", type: "text", value: location },
+    // { topic: "Location", key: "location", type: "text", value: location },
     // { topic: "Customer Phone", key: "custumerPhone", type: "number", value: customerPhone }
   ];
 

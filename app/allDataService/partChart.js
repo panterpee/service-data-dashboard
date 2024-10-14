@@ -82,9 +82,9 @@ const PartChart = () => {
   };
 
   return (
-    <div style={{ maxWidth: '800px', height: 'max-content', color:"GrayText", textAlign:"center", 
-    fontSize:"25px", fontWeight:"bolder", backgroundColor:"rgba(255, 255, 255, 0.5)"
-    ,marginBottom:"5rem", marginLeft:"5vw"}}>
+    <div style={{ width:'100%',maxWidth: '600px', height: 'max-content', color:"GrayText", textAlign:"center", 
+    fontSize:"25px", fontWeight:"bolder", backgroundColor:"rgba(255, 255, 255, 0.7)"
+    ,marginBottom:"5rem", marginLeft:"3vw"}}>
       <h1>Part Defect Chart</h1>
       <Bar data={data}/>
     </div>

@@ -10,20 +10,19 @@ export async function POST(req) {
 
         // Check exist SN 
         const [checkSN] = await conn.query(
-            "SELECT * FROM modelSerial WHERE SN = ?",
+            "SELECT * FROM installData WHERE SN = ?",
             [snId]
         );
         if (checkSN.length === 0) {
             return new Response(
                 JSON.stringify({
-                    message: `SN ${snId} does not exist`,
+                    message: `SN ${snId} does not already installed`,
                 }),
                 { status: 400 }
             );
         }        
 
-
-        //SN is exist
+        //if SN is exist
         const [results] = await conn.query(
             "INSERT INTO dataService SET ?",
              DataRecieve

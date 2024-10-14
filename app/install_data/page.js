@@ -5,21 +5,22 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getData } from './action';
 import { useUserContext } from "../userContext";
+import { checkToken } from '../lib/auth';
 import "./page.css";
 
 // Get token from cookie
-function getCookie() {
-  const token_store = document.cookie;
-  const token = token_store.split(`token=`).pop();
-  return token;
-}
+// function getCookie() {
+//   const token_store = document.cookie;
+//   const token = token_store.split(`token=`).pop();
+//   return token;
+// }
 
 export default function AdminPage() {
   const { userRole, setUserRole } = useUserContext(); 
   const router = useRouter();
 
   useEffect(() => {
-    const token = getCookie();
+    const token = checkToken();
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
@@ -42,7 +43,7 @@ export default function AdminPage() {
       // Check role
       if (userRole !== 'admin') {
         alert("You can't access admin.");
-        router.push(`/allDataService`);
+        router.push(`/serviceForm`);
       }
     }
   }, [userRole, router]);  
@@ -99,7 +100,7 @@ export default function AdminPage() {
                 <th>SN</th>
                 <th>InstallDate</th>
                 <th>Location</th>
-                <th>Date</th>
+                {/* <th>Date</th> */}
               </tr>
             </thead>
             <tbody>
@@ -109,7 +110,7 @@ export default function AdminPage() {
                   <td>{data.officerName}</td>
                   <td>{data.product}</td>
                   <td>{data.SN}</td>
-                  <td style={{ maxWidth: "150px" }}>{data.date}</td>
+                  <td style={{ maxWidth: "150px" }}>{data.date.split("T")[0]}</td>
                   <td>{data.location}</td>
                 </tr>
               ))}

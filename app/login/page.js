@@ -16,7 +16,6 @@ export default function Page() {
   }
 
   const [state, formAction] = useFormState(Login, initialState);
-  const { setOfficerName } = useUserContext();
 
   if (state.message === 'login success') {
     check_login = true;
@@ -27,24 +26,19 @@ export default function Page() {
     alert(state.message);
   }
 
-  // useEffect(() => {
-  //   if (state.officerName) {
-  //     setOfficerName(state.officerName);
-  //   }
-  // }, [state.officerName]);
-
   return (
     <div className='align_center'>
       <h1><b>Login</b></h1>
       <form action={formAction}>
-        <h3>
+        <h3 className="login-label" >
           Username:
+        </h3>
           <input type="text" name="username" className="input" />
-        </h3>
-        <h3>
+        <h3 className="login-label">
           Password:
-          <input type="password" name="password" className="input" />
         </h3>
+          <input type="password" name="password" className="input" />
+         <br></br>
         <button className="button-1">Submit</button>
       </form>
     </div>

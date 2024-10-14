@@ -1,32 +1,34 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { roleCheck } from "../lib/roleCheck";
 import { getData } from "./action";
 import "./page.css";
 
 export default function Page() {
   const [searchTerm, setSearchTerm] = useState(""); 
   const [custumerData, setCustumerData] = useState([]);
-
+  
+  roleCheck();
   useEffect(() => {
     async function fetchData() {
       const result = await getData();
-  
+
       if (result.message) {
-        alert(result.message); 
+        alert(result.message);
         window.location.href = "/login"; 
       } else {
         setCustumerData(result);
-        console.log(result)
       }
     }
     fetchData();
   }, []);
 
-
+  
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
+
 
   const filteredData = custumerData.filter((data) =>
     data.officerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -63,7 +65,7 @@ export default function Page() {
                 <th>Malfunction</th>
                 <th>InstallDate</th>
                 <th>ServiceDate</th>
-                <th>Period (min.)</th>
+                <th>Period</th>
                 <th>Location</th>
                 <th>SN.</th>
               </tr>
@@ -76,8 +78,8 @@ export default function Page() {
                   <td>{data.product}</td>
                   <td>{data.part}</td>
                   <td style={{ maxWidth: "400px" }}>{data.malfunction}</td>
-                  <td style={{ maxWidth: "150px" }}>{data.install_date}</td>
-                  <td style={{ maxWidth: "150px" }}>{data.service_date}</td>
+                  <td style={{ maxWidth: "150px" }}>{data.install_date.split("T")[0]}</td>
+                  <td style={{ maxWidth: "150px" }}>{data.service_date.split("T")[0]}</td>
                   <td>{data.total_days} d. {data.total_hours} hr. {data.total_minutes} m. </td>
                   <td>{data.location}</td>
                   <td>{data.SN}</td>

@@ -82,8 +82,8 @@ const BarChart = () => {
   };
 
   return (
-    <div style={{ maxWidth: '800px', height: 'max-content', color:"GrayText", textAlign:"center", 
-    fontSize:"25px", fontWeight:"bolder", backgroundColor:"rgba(255, 255, 255, 0.5)"
+    <div style={{ width:'100%',maxWidth: '600px', height: 'max-content', color:"GrayText", textAlign:"center", 
+    fontSize:"25px", fontWeight:"bolder", backgroundColor:"rgba(255, 255, 255, 0.7)"
     ,marginBottom:"5rem", marginLeft:"5vw"}}>
       <h1>Product Defect Chart</h1>
       <Bar data={data}/>

@@ -3,38 +3,40 @@ import { useFormState } from "react-dom";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../userContext";
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { getModel } from "./action";
 import { insertInstallData } from "./action";
+import { checkToken } from "../lib/auth";
 import "./page.css";
 
 export default function Alldata() {
   const initMessage = {
     message: null,
   };
-  let storedOfficerName = "";
   const [state, formAction] = useFormState(insertInstallData, initMessage);
   const [modelData, setModelData] = useState([]);
   const [modelSn, setModelSn] = useState(null);
   const [location, setLocation ] = useState(null);
   const {officerName, setOfficerName } = useUserContext(); 
-  if (typeof window !== 'undefined') {
-    // This code will run only in the browser
-    const storedOfficerName = localStorage.getItem('officerName');
-  }
-  const router = useRouter();
+  useEffect(()=> {
+    const storedOfficerName = window.localStorage.getItem('officerName');
+    setOfficerName(storedOfficerName)
+    }, []
+  );
+  // const router = useRouter();
 
-  function getToken() {
-    const token_store = document.cookie;
-    const token = token_store.split(`token=`).pop();
-    if (!token) {
-      alert("You have to login.")
-      router.push(`/login`);
-    }
-  }
+  // function getToken() {
+  //   const token_store = document.cookie;
+  //   const token = token_store.split(`token=`).pop();
+  //   if (!token) {
+  //     alert("You have to login.")
+  //     router.push(`/login`);
+  //   }
+  // }
+
+  checkToken()
 
   useEffect(() => {
-    getToken()
     async function fetchModel() {
       const result = await getModel();
       console.log("model:", result);
@@ -53,10 +55,8 @@ export default function Alldata() {
     }
   }, [state.message]);
 
-
-
   const topics = [
-    { topic: "Officer Name", key: "officerName", value: officerName||storedOfficerName , type: "text" },
+    { topic: "Officer Name", key: "officerName", value: officerName|| " ", type: "text" },
     { topic: "Product", key: "product", option: modelData, type: "select" },
     { topic: "Model SN", key: "modelSn", type: "text", value: modelSn },
     { topic: "Location", key: "location", type: "text", value: location },
@@ -72,7 +72,6 @@ export default function Alldata() {
     }
     
   };
-
 
   return (
     <div className="max-width">

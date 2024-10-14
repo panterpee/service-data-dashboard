@@ -2,6 +2,7 @@ import Navbar from "@/app/component/Navbar";
 import { Inter } from "next/font/google";
 import BarChart from "./chart";
 import PartChart from "./partChart"
+import "./layout.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,8 +17,11 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <Navbar/>
           {children}
-        <BarChart/>
-        <PartChart/>
+        <div className="chart-container">
+          <BarChart/>
+          <PartChart/>
+          
+        </div>
       </body>
     </html>
   );

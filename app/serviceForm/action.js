@@ -6,14 +6,11 @@ export async function insertData(prevState,formData) {
     product: formData.get("product"),
     part: formData.get("part"),
     malfunction: formData.get("malfunction"),
-    location: formData.get("location"),
+    // location: formData.get("location"),
     SN: formData.get("modelSn"),
   };
   console.log(getData);
   try {
-    
-
-
     const response = await axios.post(
       "http://localhost:3000/api/officer/insertServiceData",
       getData

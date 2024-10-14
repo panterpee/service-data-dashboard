@@ -9,11 +9,15 @@ export async function POST(req) {
 
 
         // Check exist SN in stock
-        const [checkSN] = await conn.query(
-            "SELECT * FROM modelSerial WHERE SN = ?",
-            [snId]
+        const [checkExistModel] = await conn.query(
+            `SELECT modelSerial.SN, modelSerial.model_id, modelSerial.is_sold, model.model
+            FROM modelSerial
+            JOIN model ON modelSerial.model_id = model.model_id
+            WHERE modelSerial.SN = ?`,
+           [snId]
         );
-        if (checkSN.length === 0) {
+        console.log(snId)
+        if (checkExistModel.length === 0) {
             return new Response(
                 JSON.stringify({
                     message: `SN ${snId} does not exist`,
@@ -21,8 +25,8 @@ export async function POST(req) {
                 { status: 400 }
             );
         }
-
-        if (checkSN[0].modelName !== InsertModelName) {
+        console.log("Existmodel", checkExistModel)
+        if (checkExistModel[0].model !== InsertModelName) {
             return new Response(
                 JSON.stringify({
                     message: `SN ${snId} does not match the model ${InsertModelName}`,
@@ -68,7 +72,7 @@ export async function POST(req) {
             )
         )
     } catch (error) {
-        console.error("error", error);
+        console.error("error", error.data);
         return new Response(JSON.stringify({ message: "insert data failed", error }));
     }
 }

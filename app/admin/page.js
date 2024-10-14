@@ -1,20 +1,36 @@
-'use client';
+"use client";
 
-import { jwtDecode } from 'jwt-decode'; 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { getData } from './action';
-import { useUserContext } from "../userContext";
+import { useEffect, useState } from "react";
+import { getData } from "./action";
 import "./page.css";
+import { jwtDecode } from 'jwt-decode'; 
+import { useRouter } from 'next/navigation';
+import { useUserContext } from "../userContext";
 
-// Get token from cookie
-function getCookie() {
-  const token_store = document.cookie;
-  const token = token_store.split(`token=`).pop();
-  return token;
-}
+export default function Page() {
+  const [searchTerm, setSearchTerm] = useState(""); 
+  const [custumerData, setCustumerData] = useState([]);
+  
+  function getCookie() {
+    const token_store = document.cookie;
+    const token = token_store.split(`token=`).pop();
+    return token;
+  }
+  
+  useEffect(() => {
+    async function fetchData() {
+      const result = await getData();
+  
+      if (result.message) {
+        alert(result.message); 
+        window.location.href = "/login"; 
+      } else {
+        setCustumerData(result);
+      }
+    }
+    fetchData();
+  }, []);
 
-export default function AdminPage() {
   const { userRole, setUserRole } = useUserContext(); 
   const router = useRouter();
 
@@ -48,36 +64,27 @@ export default function AdminPage() {
     }
   }, [userRole, router]);  
 
-  const [searchTerm, setSearchTerm] = useState(""); 
-  const [custumerData, setCustumerData] = useState([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      const result = await getData();
-
-      if (result.message) {
-        alert(result.message);
-        window.location.href = "/login"; 
-      } else {
-        setCustumerData(result);
-      }
-    }
-    fetchData();
-  }, []);
-
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
+  const handleEditClick = (id) => {
+    // Navigate to edit page or handle editing logic here
+    console.log("Editing entry with ID:", id);
+    router.push(`admin/edit/${id}`);
+    // For example, you could use the router to navigate to an edit page
+    // router.push(`/edit/${id}`); // Make sure to set up a corresponding route
+  };
+
   const filteredData = custumerData.filter((data) =>
-    data.officerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    data.product.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    data.part.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    data.malfunction.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    data.install_date.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    data.service_date.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    data.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    data.SN.toString().includes(searchTerm)
+    data.officerName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    data.product?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    data.part?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    data.malfunction?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    data.install_date?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    data.service_date?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    data.location?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    data.SN?.toString().includes(searchTerm)
   );
 
   return (
@@ -97,16 +104,16 @@ export default function AdminPage() {
           <table>
             <thead>
               <tr>
-              <th>Num</th>
+                <th>Num</th>
                 <th>Officer Name</th>
                 <th>Product</th>
                 <th>Part Defect</th>
                 <th>Malfunction</th>
-                <th>InstallDate</th>
-                <th>ServiceDate</th>
+                <th>Install Date</th>
+                <th>Service Date</th>
                 <th>Period (min.)</th>
                 <th>Location</th>
-                <th>SN.</th>
+                <th>SN</th>
               </tr>
             </thead>
             <tbody>
@@ -122,10 +129,9 @@ export default function AdminPage() {
                   <td>{data.total_days} d. {data.total_hours} hr. {data.total_minutes} m. </td>
                   <td>{data.location}</td>
                   <td>{data.SN}</td>
-                  <td>
-                    <button>Del</button>
-                    <button>Edit</button>
-                  </td>
+                  <td style={{color:"red"}}>
+                    <button onClick={() => handleEditClick(data.id)}>Edit</button> {/* Send data.id */}
+                  </td> 
                 </tr>
               ))}
             </tbody>

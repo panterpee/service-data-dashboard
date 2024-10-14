@@ -7,7 +7,7 @@ export async function GET() {
         const [results] = await conn.query(
             "SELECT * FROM part"
         );
-        console.log("Results recieve:", results);
+        // console.log("Results recieve:", results);
         return new Response(
             JSON.stringify(results),
             {
